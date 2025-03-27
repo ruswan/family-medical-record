@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class MedicalHistory
@@ -49,5 +50,13 @@ class MedicalHistory extends Model
     public function sickHistory(): BelongsTo
     {
         return $this->belongsTo(SickHistory::class);
+    }
+
+    /**
+     * Get all of the drugs for the MedicalHistory
+     */
+    public function drugs(): HasMany
+    {
+        return $this->hasMany(Drug::class);
     }
 }

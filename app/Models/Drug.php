@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -59,4 +60,12 @@ class Drug extends Model
         'updated_by',
         'deleted_by',
     ];
+
+    /**
+     * Get the medicalHistory that owns the Drug
+     */
+    public function medicalHistory(): BelongsTo
+    {
+        return $this->belongsTo(MedicalHistory::class);
+    }
 }

@@ -42,6 +42,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Drug withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Drug withoutTrashed()
  * @mixin \Eloquent
+ * @property int $medical_history_id
+ * @property-read \App\Models\MedicalHistory $medicalHistory
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Drug whereMedicalHistoryId($value)
  */
 	class Drug extends \Eloquent {}
 }
@@ -67,6 +70,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MedicalHistory whereSickHistoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|MedicalHistory whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Drug> $drugs
+ * @property-read int|null $drugs_count
  */
 	class MedicalHistory extends \Eloquent {}
 }
@@ -107,11 +112,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withoutTrashed()
  * @mixin \Eloquent
- * @property int $sick_type_id
  * @property-read mixed $duration
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SickType> $sickTypes
  * @property-read int|null $sick_types_count
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereSickTypeId($value)
  */
 	class SickHistory extends \Eloquent {}
 }
