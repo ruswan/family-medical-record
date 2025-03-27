@@ -3,7 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\SickTypeResource\Pages;
-use App\Filament\Resources\SickTypeResource\RelationManagers;
 use App\Models\SickType;
 use Filament\Forms;
 use Filament\Forms\Form;

@@ -2,19 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class SickHistory
  *
  * @property int $id
  * @property int $user_id
- * @property int $sick_type_id
  * @property \Illuminate\Support\Carbon $start_date
  * @property \Illuminate\Support\Carbon|null $end_date
  * @property string|null $description
@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int|null $deleted_by
  * @property-read Collection<int, \App\Models\MedicalHistory> $medicalHistories
  * @property-read int|null $medical_histories_count
- * @property-read \App\Models\SickType $sickType
  * @property-read \App\Models\User $user
  *
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory newModelQuery()
@@ -40,7 +39,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereSickTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereUpdatedBy($value)
@@ -58,7 +56,7 @@ class SickHistory extends Model
 
     protected $casts = [
         'user_id' => 'int',
-        'sick_type_id' => 'int',
+
         'start_date' => 'datetime',
         'end_date' => 'datetime',
         'created_by' => 'int',
@@ -68,7 +66,6 @@ class SickHistory extends Model
 
     protected $fillable = [
         'user_id',
-        'sick_type_id',
         'start_date',
         'end_date',
         'description',
@@ -85,14 +82,6 @@ class SickHistory extends Model
     }
 
     /**
-     * Get the sickType that owns the SickHistory
-     */
-    public function sickType(): BelongsTo
-    {
-        return $this->belongsTo(SickType::class);
-    }
-
-    /**
      * Get the user that owns the SickHistory
      */
     public function user(): BelongsTo
@@ -106,5 +95,14 @@ class SickHistory extends Model
     public function medicalHistories(): HasMany
     {
         return $this->hasMany(MedicalHistory::class);
+    }
+
+    /**
+     * The sickTypes that belong to the SickHistory
+     */
+    public function sickTypes(): BelongsToMany
+    {
+        return $this->belongsToMany(SickType::class)
+            ->withPivot('id');
     }
 }

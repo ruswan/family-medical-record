@@ -7,9 +7,6 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Filament\Tables\View\TablesRenderHook;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class SickHistoriesRelationManager extends RelationManager
 {
@@ -22,20 +19,14 @@ class SickHistoriesRelationManager extends RelationManager
                 Forms\Components\Section::make()
                     ->columns(2)
                     ->schema([
-                        Forms\Components\Select::make('sick_type_id')
-                            ->relationship('sickType', 'name')
-                            ->preload()
-                            ->searchable()
-                            ->required()
-                            ->columnSpanFull(),
                         Forms\Components\Textarea::make('description')
                             ->required()
                             ->columnSpanFull(),
                         Forms\Components\DatePicker::make('start_date')
                             ->required(),
                         Forms\Components\DatePicker::make('end_date'),
-
                     ]),
+
             ]);
     }
 
@@ -44,9 +35,6 @@ class SickHistoriesRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('id')
             ->columns([
-                Tables\Columns\TextColumn::make('sickType.name')
-                    ->badge()
-                    ->label(__('Sick Type')),
                 Tables\Columns\TextColumn::make('description')
                     ->label(__('Description')),
                 Tables\Columns\TextColumn::make('start_date')
@@ -56,14 +44,9 @@ class SickHistoriesRelationManager extends RelationManager
                     ->label(__('End Date'))
                     ->date(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration . ' days'),
+                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration.' days'),
             ])
             ->filters([
-                Tables\Filters\SelectFilter::make('sick_type_id')
-                    ->relationship('sickType', 'name')
-                    ->preload()
-                    ->searchable()
-                    ->label(__('Sick Type')),
                 Tables\Filters\TrashedFilter::make(),
             ])
             ->headerActions([

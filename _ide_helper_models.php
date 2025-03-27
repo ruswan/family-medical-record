@@ -77,7 +77,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
- * @property int $sick_type_id
  * @property \Illuminate\Support\Carbon $start_date
  * @property \Illuminate\Support\Carbon|null $end_date
  * @property string|null $description
@@ -89,7 +88,6 @@ namespace App\Models{
  * @property int|null $deleted_by
  * @property-read Collection<int, \App\Models\MedicalHistory> $medicalHistories
  * @property-read int|null $medical_histories_count
- * @property-read \App\Models\SickType $sickType
  * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory newQuery()
@@ -102,7 +100,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereEndDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereSickTypeId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereStartDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereUpdatedBy($value)
@@ -110,7 +107,11 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withoutTrashed()
  * @mixin \Eloquent
+ * @property int $sick_type_id
  * @property-read mixed $duration
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\SickType> $sickTypes
+ * @property-read int|null $sick_types_count
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory whereSickTypeId($value)
  */
 	class SickHistory extends \Eloquent {}
 }

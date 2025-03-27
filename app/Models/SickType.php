@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -58,10 +58,11 @@ class SickType extends Model
     ];
 
     /**
-     * Get all of the sickHistories for the SickType
+     * The sickHistories that belong to the SickType
      */
-    public function sickHistories(): HasMany
+    public function sickHistories(): BelongsToMany
     {
-        return $this->hasMany(SickHistory::class);
+        return $this->belongsToMany(SickHistory::class)
+            ->withPivot('id');
     }
 }
