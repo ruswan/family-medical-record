@@ -110,6 +110,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|SickHistory withoutTrashed()
  * @mixin \Eloquent
+ * @property-read mixed $duration
  */
 	class SickHistory extends \Eloquent {}
 }
