@@ -93,12 +93,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(SickHistory::class);
     }
-
-    /**
-     * Get all of the userFamilies for the User
-     */
-    public function userFamilies(): HasMany
-    {
-        return $this->hasMany(UserFamily::class);
-    }
 }
