@@ -3,15 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicalHistoryResource\Pages;
-use App\Filament\Resources\MedicalHistoryResource\RelationManagers;
+use App\Filament\Resources\MedicalHistoryResource\RelationManagers\MedicinesRelationManager;
 use App\Models\MedicalHistory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class MedicalHistoryResource extends Resource
 {
@@ -25,13 +25,14 @@ class MedicalHistoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('sick_history_id')
-                    ->relationship('sickHistory', 'id')
-                    ->required(),
-                Forms\Components\DatePicker::make('check_date')
-                    ->required(),
-                Forms\Components\TextInput::make('hospital_name')
-                    ->maxLength(255),
+                Forms\Components\Section::make()
+                    ->schema([
+                        Forms\Components\DatePicker::make('check_date')
+                            ->required(),
+                        Forms\Components\TextInput::make('hospital_name')
+                            ->maxLength(255),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -70,10 +71,33 @@ class MedicalHistoryResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make(__('Medical History'))
+                    ->schema([
+                        Infolists\Components\TextEntry::make('sickHistory.user.name')
+                            ->label(__('Name')),
+                        Infolists\Components\TextEntry::make('sickHistory.start_date')
+                            ->date()
+                            ->label(__('Start Date')),
+                        Infolists\Components\TextEntry::make('sickHistory.end_date')
+                            ->date()
+                            ->label(__('End Date')),
+                        Infolists\Components\TextEntry::make('sickHistory.user.name')
+                            ->label(__('Check Date')),
+                        Infolists\Components\TextEntry::make('hospital_name')
+                            ->label(__('Hospital Name')),
+                    ])
+                    ->columns(3),
+            ]);
+    }
+
     public static function getRelations(): array
     {
         return [
-            //
+            MedicinesRelationManager::class,
         ];
     }
 

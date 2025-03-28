@@ -7,6 +7,8 @@ use App\Filament\Resources\UserResource\RelationManagers\SickHistoriesRelationMa
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -81,6 +83,19 @@ class UserResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->deferLoading();
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make(__('User'))
+                    ->schema([
+                        Infolists\Components\TextEntry::make('name'),
+                        Infolists\Components\TextEntry::make('email'),
+                    ])
+                    ->columns(2),
+            ]);
     }
 
     public static function getRelations(): array

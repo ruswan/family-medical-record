@@ -7,6 +7,8 @@ use App\Filament\Resources\SickHistoryResource\RelationManagers\MedicalHistories
 use App\Models\SickHistory;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -60,7 +62,7 @@ class SickHistoryResource extends Resource
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration . ' days'),
+                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration.' days'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -83,6 +85,24 @@ class SickHistoryResource extends Resource
             ])
             ->deferLoading()
             ->defaultSort('start_date', 'desc');
+    }
+
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                Infolists\Components\Section::make(__('Sick History'))
+                    ->schema([
+                        Infolists\Components\TextEntry::make('user.name'),
+                        Infolists\Components\TextEntry::make('start_date')
+                            ->date(),
+                        Infolists\Components\TextEntry::make('end_date')
+                            ->date(),
+                        Infolists\Components\TextEntry::make('description')
+                            ->columnSpanFull(),
+                    ])
+                    ->columns(3),
+            ]);
     }
 
     public static function getRelations(): array

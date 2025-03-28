@@ -58,7 +58,9 @@ class SickHistoriesRelationManager extends RelationManager
                     ->url(fn ($record) => SickHistoryResource::getUrl().'/'.$record->getKey()),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
-            ]);
+            ])
+            ->deferLoading()
+            ->defaultSort('created_at', 'asc');
     }
 
     public function isReadOnly(): bool

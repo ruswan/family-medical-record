@@ -48,7 +48,7 @@ class MedicalHistoriesRelationManager extends RelationManager
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->url(fn ($record) => MedicalHistoryResource::getUrl() . '/' . $record->getKey()),
+                    ->url(fn ($record) => MedicalHistoryResource::getUrl().'/'.$record->getKey()),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
