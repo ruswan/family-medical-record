@@ -19,6 +19,8 @@ class SickHistoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
+    protected static ?int $navigationSort = 2;
+
     public static function form(Form $form): Form
     {
         return $form
@@ -58,7 +60,7 @@ class SickHistoryResource extends Resource
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('duration')
-                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration.' days'),
+                    ->formatStateUsing(fn ($record) => is_null($record->end_date) ? '?' : $record->duration . ' days'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

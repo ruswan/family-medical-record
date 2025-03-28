@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\SickHistoryResource\RelationManagers;
 
+use App\Filament\Resources\MedicalHistoryResource;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
@@ -42,9 +43,12 @@ class MedicalHistoriesRelationManager extends RelationManager
                     ->label(__('Medicines')),
             ])
             ->headerActions([
+
                 Tables\Actions\CreateAction::make(),
             ])
             ->actions([
+                Tables\Actions\ViewAction::make()
+                    ->url(fn ($record) => MedicalHistoryResource::getUrl() . '/' . $record->getKey()),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
