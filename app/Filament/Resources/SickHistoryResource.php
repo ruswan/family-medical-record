@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SickHistoryResource\Pages;
 use App\Filament\Resources\SickHistoryResource\RelationManagers\MedicalHistoriesRelationManager;
+use App\Filament\Resources\SickHistoryResource\RelationManagers\SickTypesRelationManager;
 use App\Models\SickHistory;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -109,6 +110,7 @@ class SickHistoryResource extends Resource
     {
         return [
             MedicalHistoriesRelationManager::class,
+            SickTypesRelationManager::class,
         ];
     }
 
