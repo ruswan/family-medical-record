@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('sick_histories', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sick_type_id')->constrained()->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('description')->nullable();
