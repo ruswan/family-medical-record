@@ -53,10 +53,10 @@ class MedicalHistory extends Model
     }
 
     /**
-     * Get all of the drugs for the MedicalHistory
+     * Get all of the medicines for the MedicalHistory
      */
-    public function drugs(): HasMany
+    public function medicines(): HasMany
     {
-        return $this->hasMany(Drug::class);
+        return $this->hasMany(Medicine::class);
     }
 }

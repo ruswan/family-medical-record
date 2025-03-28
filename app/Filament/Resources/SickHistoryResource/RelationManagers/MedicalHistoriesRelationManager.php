@@ -37,9 +37,9 @@ class MedicalHistoriesRelationManager extends RelationManager
                 Tables\Columns\TextColumn::make('check_date')
                     ->date()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('drugs_count')
-                    ->counts('drugs')
-                    ->label(__('Drugs')),
+                Tables\Columns\TextColumn::make('medicines_count')
+                    ->counts('medicines')
+                    ->label(__('Medicines')),
             ])
             ->headerActions([
                 Tables\Actions\CreateAction::make(),
